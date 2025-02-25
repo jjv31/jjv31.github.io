@@ -2,67 +2,27 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Redirecting...</title>
+  <title>Page Not Found</title>
   <script type="text/javascript">
-    // Single Page Apps for GitHub Pages
-    // MIT License
-    // This script handles routing for React Router on GitHub Pages
-    
-    // Extract the path from the URL
-    var pathSegmentsToKeep = 0; // Since you're using a custom domain (jverrey.com)
+    // GitHub Pages SPA Redirect
+    (function() {
+      // Don't redirect for resource files
+      var fileExtensionRegex = /\.(pdf|jpg|jpeg|png|gif|js|css|ico|svg|woff|woff2|ttf|eot)$/i;
+      if (fileExtensionRegex.test(window.location.pathname)) {
+        return;
+      }
 
-    var l = window.location;
-    var redirectPath = l.pathname.replace(/^\/+/, ''); // Trim leading slashes
-    
-    // Check if the request is for a PDF or static file
-    var isStaticFile = /\.(pdf|jpg|jpeg|png|gif|svg|ico)$/i.test(redirectPath);
-    
-    // Don't redirect if it's a static file request - let GitHub Pages serve it directly
-    if (isStaticFile) {
-      // Do nothing - let the 404 page load, which will cause GitHub Pages to show a 404
-      // This is necessary because we can't redirect back to the original path in JavaScript
-      document.write("File not found. Please make sure the file exists in your repository.");
-      return;
-    }
-    
-    // ALL valid paths in your application based on your React Router setup
-    var validPaths = [
-      "software",
-      "publications",
-      "government_advising",
-      "government_courses",
-      "talks_lectures",
-      "tech",
-      "affiliations"
-    ];
-    
-    // Check if path is valid - making sure to check case-insensitively
-    var isValidPath = validPaths.some(function(path) {
-      var lowerPath = redirectPath.toLowerCase();
-      var lowerValidPath = path.toLowerCase();
-      return lowerPath === lowerValidPath || lowerPath.startsWith(lowerValidPath + "/");
-    });
-    
-    // If path is valid or empty (homepage), redirect appropriately
-    if (isValidPath || redirectPath === "") {
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
-    } else {
-      // For invalid paths, redirect to home
-      console.log("Invalid path detected: " + redirectPath + ". Redirecting to home.");
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '')
-      );
-    }
+      var redirectURL = window.location.protocol + '//' + window.location.hostname +
+                        (window.location.port ? ':' + window.location.port : '') +
+                        '/?' +
+                        window.location.pathname.slice(1);
+
+      window.location.replace(redirectURL);
+    })();
   </script>
 </head>
 <body>
-  <p>Redirecting to the requested page...</p>
-  <p>If you are not redirected automatically, click <a href="/">here</a> to go to the homepage.</p>
+  <h1>Redirecting...</h1>
+  <p>If you are not redirected automatically, click <a href="/">here</a> to return to the homepage.</p>
 </body>
 </html>
