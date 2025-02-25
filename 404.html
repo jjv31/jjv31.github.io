@@ -14,6 +14,17 @@
     var l = window.location;
     var redirectPath = l.pathname.replace(/^\/+/, ''); // Trim leading slashes
     
+    // Check if the request is for a PDF or static file
+    var isStaticFile = /\.(pdf|jpg|jpeg|png|gif|svg|ico)$/i.test(redirectPath);
+    
+    // Don't redirect if it's a static file request - let GitHub Pages serve it directly
+    if (isStaticFile) {
+      // Do nothing - let the 404 page load, which will cause GitHub Pages to show a 404
+      // This is necessary because we can't redirect back to the original path in JavaScript
+      document.write("File not found. Please make sure the file exists in your repository.");
+      return;
+    }
+    
     // ALL valid paths in your application based on your React Router setup
     var validPaths = [
       "software",
