@@ -5,14 +5,16 @@
   <title>Redirecting...</title>
   <script type="text/javascript">
     // Single Page Apps for GitHub Pages
+    // MIT License
+    // This script handles routing for React Router on GitHub Pages
     
     // Extract the path from the URL
-    var pathSegmentsToKeep = 0; // Change to 1 if your repo is not using a custom domain
+    var pathSegmentsToKeep = 0; // Since you're using a custom domain (jverrey.com)
 
     var l = window.location;
     var redirectPath = l.pathname.replace(/^\/+/, ''); // Trim leading slashes
     
-    // Valid paths in your application based on your React Router setup
+    // ALL valid paths in your application based on your React Router setup
     var validPaths = [
       "software",
       "publications",
@@ -23,13 +25,15 @@
       "affiliations"
     ];
     
-    // Check if it's a valid path
+    // Check if path is valid - making sure to check case-insensitively
     var isValidPath = validPaths.some(function(path) {
-      return redirectPath === path || redirectPath.startsWith(path + "/");
+      var lowerPath = redirectPath.toLowerCase();
+      var lowerValidPath = path.toLowerCase();
+      return lowerPath === lowerValidPath || lowerPath.startsWith(lowerValidPath + "/");
     });
     
+    // If path is valid or empty (homepage), redirect appropriately
     if (isValidPath || redirectPath === "") {
-      // Redirect to the index.html with proper URL
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
         l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
@@ -38,7 +42,8 @@
         l.hash
       );
     } else {
-      // If not a valid path, redirect to home
+      // For invalid paths, redirect to home
+      console.log("Invalid path detected: " + redirectPath + ". Redirecting to home.");
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '')
       );
@@ -46,6 +51,7 @@
   </script>
 </head>
 <body>
-  Redirecting...
+  <p>Redirecting to the requested page...</p>
+  <p>If you are not redirected automatically, click <a href="/">here</a> to go to the homepage.</p>
 </body>
 </html>
