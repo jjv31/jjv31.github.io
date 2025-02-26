@@ -4,7 +4,33 @@
   <meta charset="utf-8">
   <title>Page Not Found</title>
   <script type="text/javascript">
-    window.location.replace('/');
+    (function() {
+      var path = window.location.pathname;
+      
+      // Don't redirect asset files
+      if (/\.(js|css|png|jpg|jpeg|gif|ico|svg)$/i.test(path)) {
+        return;
+      }
+
+      // List of valid routes
+      var validRoutes = [
+        '/software',
+        '/publications',
+        '/government_advising',
+        '/government_courses',
+        '/talks_lectures',
+        '/tech',
+        '/affiliations'
+      ];
+
+      // If it's a valid route, preserve it
+      if (validRoutes.includes(path)) {
+        window.location.replace(path);
+      } else {
+        // If not a valid route, go to homepage
+        window.location.replace('/');
+      }
+    })();
   </script>
 </head>
 <body>
