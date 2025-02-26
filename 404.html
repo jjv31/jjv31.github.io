@@ -6,6 +6,7 @@
   <script type="text/javascript">
     (function() {
       var path = window.location.pathname;
+      var domain = window.location.protocol + '//' + window.location.hostname;
       
       // Don't redirect asset files
       if (/\.(js|css|png|jpg|jpeg|gif|ico|svg)$/i.test(path)) {
@@ -25,16 +26,16 @@
 
       // If it's a valid route, preserve it
       if (validRoutes.includes(path)) {
-        window.location.replace(path);
+        window.location.replace(domain + path);
       } else {
         // If not a valid route, go to homepage
-        window.location.replace('/');
+        window.location.replace(domain);
       }
     })();
   </script>
 </head>
 <body>
   <h1>Redirecting...</h1>
-  <p>If you are not redirected automatically, click <a href="/">here</a> to return to the homepage.</p>
+  <p>If you are not redirected automatically, click <a href="https://jverrey.com">here</a> to return to the homepage.</p>
 </body>
 </html> 
