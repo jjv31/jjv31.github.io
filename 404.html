@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Page Not Found</title>
+  <script type="text/javascript">
+    // GitHub Pages SPA Redirect
+    (function() {
+      // Don't redirect for resource files
+      var fileExtensionRegex = /\.(pdf|jpg|jpeg|png|gif|js|css|ico|svg|woff|woff2|ttf|eot)$/i;
+      if (fileExtensionRegex.test(window.location.pathname)) {
+        return;
+      }
+
+      var redirectURL = window.location.protocol + '//' + window.location.hostname +
+                        (window.location.port ? ':' + window.location.port : '') +
+                        '/?' +
+                        window.location.pathname.slice(1);
+
+      window.location.replace(redirectURL);
+    })();
+  </script>
+</head>
+<body>
+  <h1>Redirecting...</h1>
+  <p>If you are not redirected automatically, click <a href="/">here</a> to return to the homepage.</p>
+</body>
+</html>
