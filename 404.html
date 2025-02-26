@@ -4,26 +4,32 @@
   <meta charset="utf-8">
   <title>Page Not Found</title>
   <script type="text/javascript">
-    // GitHub Pages SPA Redirect with hash for React Router
-    (function() {
-      // Don't redirect for resource files
-      var fileExtensionRegex = /\.(pdf|jpg|jpeg|png|gif|js|css|ico|svg|woff|woff2|ttf|eot)$/i;
-      if (fileExtensionRegex.test(window.location.pathname)) {
-        return;
-      }
 
-      var pathSegmentsToKeep = 0; // Change this to 1 if your repo is not a username.github.io repo
-      var l = window.location;
-      var redirectURL = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/#/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/') +
-        (l.search ? l.search : '');
-      
-      window.location.replace(redirectURL);
-    })();
+    (function(l) {
+      if (l.search[1] === '/' ) {
+        var decoded = l.search.slice(1).split('&').map(function(s) { 
+          return s.replace(/~and~/g, '&')
+        }).join('?');
+        window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    }(window.location))
   </script>
 </head>
 <body>
+  <script>
+    const pathSegmentsToKeep = 0; // Change to 1 if using custom domain
+    const redirectURL = window.location.protocol + '//' + window.location.hostname + 
+      (window.location.port ? ':' + window.location.port : '') +
+      window.location.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + 
+      '/?/' +
+      window.location.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/') +
+      window.location.search +
+      window.location.hash;
+
+    window.location.replace(redirectURL);
+  </script>
   <h1>Redirecting...</h1>
   <p>If you are not redirected automatically, click <a href="/">here</a> to return to the homepage.</p>
 </body>
