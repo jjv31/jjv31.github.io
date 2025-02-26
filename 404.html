@@ -4,22 +4,23 @@
   <meta charset="utf-8">
   <title>Page Not Found</title>
   <script type="text/javascript">
-    // Custom domain SPA redirect with hash for React Router
+    // Single Page Apps for GitHub Pages with custom domain
     (function() {
+      // Get the current path
+      var path = window.location.pathname;
+      
       // Don't redirect for resource files
       var fileExtensionRegex = /\.(pdf|jpg|jpeg|png|gif|js|css|ico|svg|woff|woff2|ttf|eot)$/i;
-      if (fileExtensionRegex.test(window.location.pathname)) {
+      if (fileExtensionRegex.test(path)) {
         return;
       }
 
-      var l = window.location;
-      
-      // For custom domain, we just need to redirect to /#/path
-      var redirectURL = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        '/#' + l.pathname +
-        (l.search ? l.search : '');
-      
-      window.location.replace(redirectURL);
+      // Redirect to the root with the same path
+      window.location.replace(
+        window.location.protocol + '//' + window.location.hostname +
+        (window.location.port ? ':' + window.location.port : '') +
+        path
+      );
     })();
   </script>
 </head>
@@ -27,4 +28,4 @@
   <h1>Redirecting...</h1>
   <p>If you are not redirected automatically, click <a href="/">here</a> to return to the homepage.</p>
 </body>
-</html>
+</html> 
