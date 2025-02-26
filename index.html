@@ -11,20 +11,19 @@
         gtag('config', 'G-4SLX4VW9KF');
     </script>
 
-    <!-- Start Single Page Apps for GitHub Pages -->
+    <!-- Handle GitHub Pages SPA Routing -->
     <script type="text/javascript">
-      (function(l) {
-        if (l.search[1] === '/') {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&')
-          }).join('?');
-          window.history.replaceState(null, null,
-            l.pathname.slice(0, -1) + decoded + l.hash
-          );
+      (function() {
+        // Check if we have a stored path to redirect to
+        var redirectPath = sessionStorage.getItem('redirect_path');
+        if (redirectPath) {
+          // Clear it immediately to prevent loops
+          sessionStorage.removeItem('redirect_path');
+          // Redirect to the stored path
+          window.location.replace('/' + redirectPath);
         }
-      }(window.location))
+      })();
     </script>
-    <!-- End Single Page Apps for GitHub Pages -->
 
     <meta charset="UTF-8" />
     <link rel="icon" type="image/jpg" href="/browser_logo2.jpg" />

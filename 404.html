@@ -4,22 +4,28 @@
   <meta charset="utf-8">
   <title>Page Not Found</title>
   <script type="text/javascript">
-    // Single Page Apps for GitHub Pages with custom domain
+    // Handles GitHub Pages SPA routing
     (function() {
-      // Get the current path
-      var path = window.location.pathname;
+      var segmentCount = 0;  // Use 0 for custom domain
+      var location = window.location;
       
       // Don't redirect for resource files
       var fileExtensionRegex = /\.(pdf|jpg|jpeg|png|gif|js|css|ico|svg|woff|woff2|ttf|eot)$/i;
-      if (fileExtensionRegex.test(path)) {
+      if (fileExtensionRegex.test(location.pathname)) {
         return;
       }
 
-      // Redirect to the root with the same path
-      window.location.replace(
-        window.location.protocol + '//' + window.location.hostname +
-        (window.location.port ? ':' + window.location.port : '') +
-        path
+      // Store the URL we're trying to reach
+      var redirectPath = location.pathname + location.search;
+      
+      // Remove leading slashes and store the path in sessionStorage
+      var cleanPath = redirectPath.substr(1);
+      sessionStorage.setItem('redirect_path', cleanPath);
+
+      // Redirect to the root
+      location.replace(
+        location.protocol + '//' + location.hostname +
+        (location.port ? ':' + location.port : '')
       );
     })();
   </script>
